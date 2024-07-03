@@ -30,7 +30,7 @@ alternate storage backends or burstability and work well for
 open-ended scenarios. The first offers a `Take` function which
 returns a reset unix nanosecond -- when a wait is required --
 utilising a refilling bucket model. The second offers a `Wait`
-function implemented as a token bucket which also refills. Both use
+function implemented on a token bucket which also refills. Both use
 mutex locking.
 
 ## Example usage
@@ -40,10 +40,11 @@ Example with "things" which have a string key and string value:
 ```go
 KeyRate = time.Millisecond * 10  // ~100/sec
 a := time.Now()
-getter := Get([]Thing[string, string]{
-	Thing[string, string]{"a", "b"},
-	Thing[string, string]{"b", "c"},
-	Thing[string, string]{"a", "c"},
+type ssT = Thing[string, string]
+getter := Get([]ssT{
+	ssT{"a", "b"},
+	ssT{"b", "c"},
+	ssT{"a", "c"},
 })
 
 // getter can be consumed by multiple goroutines
@@ -61,10 +62,11 @@ type X struct {
 }
 
 KeyRate = time.Millisecond * 100  // ~10/sec
-getter := Get([]Thing[int, X]{
-	Thing[int, X]{0, X{"b"}},
-	Thing[int, X]{1, X{"c"}},
-	Thing[int, X]{0, X{"c"}},
+type ixT = Thing[int, X]
+getter := Get([]ixT{
+	ixT{0, X{"b"}},
+	ixT{1, X{"c"}},
+	ixT{0, X{"c"}},
 })
 
 for t := range getter {

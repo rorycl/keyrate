@@ -8,27 +8,28 @@ import (
 
 func TestGetStringString(t *testing.T) {
 
+	type ssT = Thing[string, string]
 	tests := []struct {
 		keyRate     time.Duration
-		things      []Thing[string, string]
+		things      []ssT
 		maxDuration time.Duration
 		results     int
 	}{
 		{
 			keyRate:     10 * time.Millisecond,
-			things:      []Thing[string, string]{},
+			things:      []ssT{},
 			maxDuration: time.Millisecond * 5,
 			results:     0,
 		},
 		{
 			keyRate: 10 * time.Millisecond,
-			things: []Thing[string, string]{
-				Thing[string, string]{"a", "b"},
-				Thing[string, string]{"b", "c"},
-				Thing[string, string]{"a", "c"},
-				Thing[string, string]{"a", "d"},
-				Thing[string, string]{"b", "d"},
-				Thing[string, string]{"z", "n"},
+			things: []ssT{
+				ssT{"a", "b"},
+				ssT{"b", "c"},
+				ssT{"a", "c"},
+				ssT{"a", "d"},
+				ssT{"b", "d"},
+				ssT{"z", "n"},
 			},
 			maxDuration: time.Millisecond * 33,
 			results:     6,
@@ -58,20 +59,21 @@ func TestGetStringString(t *testing.T) {
 
 func TestGetIntString(t *testing.T) {
 
+	type isT = Thing[int, string]
 	tests := []struct {
 		keyRate     time.Duration
-		things      []Thing[int, string]
+		things      []isT
 		maxDuration time.Duration
 		results     int
 	}{
 		{
 			keyRate: 10 * time.Millisecond,
-			things: []Thing[int, string]{
-				Thing[int, string]{0, "b"},
-				Thing[int, string]{1, "c"},
-				Thing[int, string]{0, "c"},
-				Thing[int, string]{1, "d"},
-				Thing[int, string]{9, "n"},
+			things: []isT{
+				isT{0, "b"},
+				isT{1, "c"},
+				isT{0, "c"},
+				isT{1, "d"},
+				isT{9, "n"},
 			},
 			maxDuration: time.Millisecond * 12,
 			results:     5,
@@ -105,36 +107,37 @@ func TestGetIntStruct(t *testing.T) {
 		a string
 	}
 
+	type ixT = Thing[int, X]
 	tests := []struct {
 		keyRate     time.Duration
-		things      []Thing[int, X]
+		things      []ixT
 		maxDuration time.Duration
 		results     int
 	}{
 		{
 			keyRate: 10 * time.Millisecond,
-			things: []Thing[int, X]{
-				Thing[int, X]{0, X{"b"}},
-				Thing[int, X]{1, X{"c"}},
-				Thing[int, X]{0, X{"c"}},
-				Thing[int, X]{1, X{"d"}},
-				Thing[int, X]{9, X{"n"}},
+			things: []ixT{
+				ixT{0, X{"b"}},
+				ixT{1, X{"c"}},
+				ixT{0, X{"c"}},
+				ixT{1, X{"d"}},
+				ixT{9, X{"n"}},
 			},
 			maxDuration: time.Millisecond * 12,
 			results:     5,
 		},
 		{
 			keyRate: 10 * time.Millisecond,
-			things: []Thing[int, X]{
-				Thing[int, X]{0, X{"b"}},
-				Thing[int, X]{1, X{"c"}},
-				Thing[int, X]{0, X{"c"}},
-				Thing[int, X]{1, X{"d"}},
-				Thing[int, X]{9, X{"a"}},
-				Thing[int, X]{9, X{"b"}},
-				Thing[int, X]{9, X{"c"}},
-				Thing[int, X]{9, X{"d"}},
-				Thing[int, X]{9, X{"e"}},
+			things: []ixT{
+				ixT{0, X{"b"}},
+				ixT{1, X{"c"}},
+				ixT{0, X{"c"}},
+				ixT{1, X{"d"}},
+				ixT{9, X{"a"}},
+				ixT{9, X{"b"}},
+				ixT{9, X{"c"}},
+				ixT{9, X{"d"}},
+				ixT{9, X{"e"}},
 			},
 			maxDuration: time.Millisecond * 45, // drifts up to 5ms
 			results:     9,

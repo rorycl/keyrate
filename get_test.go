@@ -9,10 +9,11 @@ import (
 func Example() {
 	KeyRate = time.Millisecond * 10
 	a := time.Now()
-	getter := Get([]Thing[string, string]{
-		Thing[string, string]{"a", "b"},
-		Thing[string, string]{"b", "c"},
-		Thing[string, string]{"a", "c"},
+	type ssT = Thing[string, string]
+	getter := Get([]ssT{
+		ssT{"a", "b"},
+		ssT{"b", "c"},
+		ssT{"a", "c"},
 	})
 
 	// getter is non-deterministic in terms of output order
