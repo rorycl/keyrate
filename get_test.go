@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func ExampleKeyRate() {
+func Example() {
 	KeyRate = time.Millisecond * 10
 	a := time.Now()
 	getter := Get([]Thing[string, string]{
@@ -23,7 +23,7 @@ func ExampleKeyRate() {
 	slices.Sort(output)
 
 	fmt.Println(output)
-	// will run in jut over 10ms
+	// will run in just over 10ms
 	fmt.Printf("%dms\n", time.Since(a).Milliseconds())
 
 	// Output:

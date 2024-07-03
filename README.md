@@ -1,24 +1,24 @@
 # keyrate
 
 Package keyrate implements a non-locking rate-limiter for a
-slice of Key:Value [Thing], safe for concurrent use.
+slice of Key:Value `Thing`, safe for concurrent use.
 
-This simple module processes a slice of [Thing] where items
-(Thing.Value) with common keys (Thing.Key) are provided via the [Get]
+This simple module processes a slice of `Thing` where items
+(Thing.Value) with common keys (Thing.Key) are provided via the `Get`
 function channel at an interval at KeyRate (or longer) time
 intervals.
 
 ## Details
 
-Rate limiting utilises a time.Ticker to put each Thing.Value in a
-Thing.Key group (or "bunch") on the result channel until exhausted.
+Rate limiting utilises a time.Ticker to put each `Thing.Value` in a
+`Thing.Key` group (or "bunch") on the result channel until exhausted.
 The ticker is reset after each put to the channel to account for
 blocking delays by the consumer or contention from processing other
 bunches. This is not a bucket-type rate-limiting strategy with
 replenishing tokens.
 
 This simple solution requires items to be known upfront which are
-then provided back to the consumer via the [Get] function, on a
+then provided back to the consumer via the `Get` function, on a
 per-bunch, rate-limited basis which is concurrent safe without the
 need for locking.
 
