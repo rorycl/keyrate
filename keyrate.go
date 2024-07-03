@@ -68,7 +68,7 @@
 //
 // # Licence
 //
-// Provided under the MIT Licence.
+// Provided under the MIT License.
 package keyrate
 
 import (

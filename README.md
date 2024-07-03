@@ -72,6 +72,6 @@ for t := range getter {
 }
 ```
 
-# Licence
+# License
 
-Provided under the MIT Licence.
+Provided under the MIT License. See https://opensource.org/license/mit
