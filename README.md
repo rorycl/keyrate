@@ -1,7 +1,7 @@
 # keyrate
 
 Package keyrate implements a non-locking rate-limiter for a
-slice of Key:Value `Thing`, safe for concurrent use.
+slice of Key:Value `Thing`, intended for concurrent use.
 
 This simple module processes a slice of `Thing` where items
 (Thing.Value) with common keys (Thing.Key) are provided via the `Get`
@@ -35,12 +35,15 @@ mutex locking.
 
 ## Example usage
 
+Note that the examples below use type aliases to avoid, for example,
+having to repeat `Thing[string, string]` for each slice item.
+
 Example with "things" which have a string key and string value:
 
 ```go
 KeyRate = time.Millisecond * 10  // ~100/sec
 a := time.Now()
-type ssT = Thing[string, string]
+type ssT = Thing[string, string] // use type alias
 getter := Get([]ssT{
 	ssT{"a", "b"},
 	ssT{"b", "c"},
@@ -62,7 +65,7 @@ type X struct {
 }
 
 KeyRate = time.Millisecond * 100  // ~10/sec
-type ixT = Thing[int, X]
+type ixT = Thing[int, X]          // use type alias
 getter := Get([]ixT{
 	ixT{0, X{"b"}},
 	ixT{1, X{"c"}},
@@ -74,6 +77,6 @@ for t := range getter {
 }
 ```
 
-# License
+## License
 
 Provided under the MIT License. See https://opensource.org/license/mit
