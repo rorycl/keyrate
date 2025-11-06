@@ -1,9 +1,11 @@
-package keyrate
+package keyrate_test
 
 import (
 	"fmt"
 	"slices"
 	"time"
+
+	"github.com/rorycl/keyrate"
 )
 
 // Example provides an example for using the keyrate package
@@ -11,13 +13,13 @@ func Example() {
 	a := time.Now()
 
 	// override the package default KeyRate
-	KeyRate = time.Millisecond * 10
+	keyrate.KeyRate = time.Millisecond * 10
 
-	// make a string string Thing type alias to reduce boilerplate
-	type ssT = Thing[string, string]
+	// make a string Thing type alias to reduce boilerplate
+	type ssT = keyrate.Thing[string, string]
 
 	// define a channel from a slice of key/value pairs
-	getter := Get([]ssT{
+	getter := keyrate.Get([]ssT{
 		ssT{"a", "b"},
 		ssT{"b", "c"},
 		ssT{"a", "c"},
@@ -38,7 +40,6 @@ func Example() {
 
 	// will run in just over 10ms
 	fmt.Printf("%dms\n", time.Since(a).Milliseconds())
-
 	// Output:
 	// [b c c]
 	// 10ms
